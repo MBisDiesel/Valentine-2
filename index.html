@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <style>
+        /* --- CSS STYLES --- */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #E0E8D9; /* Light Sage Background */
+            color: #2F4F2F; /* Dark Forest Green Text */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        /* Background Pattern */
+        .background-icons {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+            pointer-events: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-content: space-around;
+            font-size: 3rem;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(47, 79, 47, 0.15);
+            max-width: 90%;
+            width: 400px;
+            backdrop-filter: blur(8px);
+            border: 2px solid #9CAF88;
+            transition: all 0.3s ease;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 1rem 0;
+            color: #4B6F44;
+        }
+
+        /* Images Styling */
+        .featured-image {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 1rem;
+            object-fit: cover;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            min-height: 80px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        #yesBtn {
+            background-color: #556B2F; /* Dark Olive Green */
+            color: white;
+            box-shadow: 0 4px 15px rgba(85, 107, 47, 0.4);
+            z-index: 10;
+        }
+
+        #yesBtn:hover {
+            background-color: #3d4d22;
+        }
+
+        #noBtn {
+            background-color: #D3D3D3;
+            color: #555;
+        }
+
+        #noBtn:hover {
+            background-color: #bbb;
+        }
+
+        /* Success Message State */
+        .hidden {
+            display: none;
+        }
+
+        #success-message h2 {
+            color: #556B2F;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-icons">
+        <span>🐼</span><span>🏉</span><span>🐼</span><span>🏉</span>
+        <span>🏉</span><span>🐼</span><span>🏉</span><span>🐼</span>
+        <span>🐼</span><span>🏉</span><span>🐼</span><span>🏉</span>
+        <span>🏉</span><span>🐼</span><span>🏉</span><span>🐼</span>
+        <span>🐼</span><span>🏉</span><span>🐼</span><span>🏉</span>
+    </div>
+
+    <div class="container" id="question-box">
+        <img src="envelope_intro.gif" alt="Funny Minion" class="featured-image">
+        
+        <h1>Ally, will you be my Valentine?</h1>
+        <p>There's no overtime in this match! 💚</p>
+        
+        <div class="buttons">
+            <button id="yesBtn">YES</button>
+            <button id="noBtn">No</button>
+        </div>
+    </div>
+
+    <div class="container hidden" id="success-message">
+       <img src="C:\Users\bolom\Downloads\Val\success_cat.jpg.jpg" alt="A description of the image" width= "300">
+        
+        <h1>TOUCHDOWN!</h1>
+        <h2>I knew you'd say yes! 🐼💚</h2>
+    </div>
+
+    <script>
+        /* --- JAVASCRIPT LOGIC --- */
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const questionBox = document.getElementById('question-box');
+        const successMessage = document.getElementById('success-message');
+
+        let yesScale = 1;
+        let noScale = 1;
+        
+        const noTexts = [
+            "No", "Are you sure?", "Really?", "Think about the Panda!", 
+            "Rugby tackle?", "Last chance!", "Please?", "Don't do this!"
+        ];
+        let textIndex = 0;
+
+        // Logic for clicking 'No'
+        noBtn.addEventListener('click', () => {
+            // 1. Make Yes button bigger
+            yesScale += 0.5; 
+            yesBtn.style.transform = `scale(${yesScale})`;
+
+            // 2. Make No button smaller
+            noScale -= 0.15;
+            noBtn.style.transform = `scale(${noScale})`;
+
+            // 3. Change text
+            textIndex++;
+            if (textIndex < noTexts.length) {
+                noBtn.innerText = noTexts[textIndex];
+            } else {
+                noBtn.innerText = "💔";
+                noBtn.style.opacity = 0;
+                noBtn.disabled = true;
+            }
+        });
+
+        // Logic for clicking 'Yes'
+        yesBtn.addEventListener('click', () => {
+            questionBox.style.display = 'none'; // Hide question
+            successMessage.classList.remove('hidden'); // Show cat & success
+            
+            // Change background color slightly to celebrate
+            document.body.style.backgroundColor = "#C4D7B2";
+        });
+    </script>
+</body>
+</html>
