@@ -140,14 +140,14 @@
         </div>
     </div>
 
-    <div class="container" id="success-message">
+    <div class="container hidden" id="success-message">
            <img src="success_cat.jpg" alt="Celebration" class="featured-image">
       
         <h1>TOUCHDOWN!</h1>
         <h2>I knew you'd say yes! 🐼💚</h2>
     </div>
 
-    <audio id="bgMusic" controls>
+    <audio id="bgMusic" autoplay loop>
         <source src="audio/sacrifice.mp3" type="audio/mpeg">
     </audio>
     
@@ -195,11 +195,15 @@
             
             // Change background color slightly to celebrate
             document.body.style.backgroundColor = "#C4D7B2";
+
+            // Play the music when they say yes!
+            document.getElementById('bgMusic').play()
         });
     </script>
 </body>
 
 </html>
+
 
 
 
